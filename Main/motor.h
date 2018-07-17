@@ -9,25 +9,33 @@ class motor
 
   public:
     // constructor vacio
-    moto() {
+    motor() {
+      s1.attach(0);
+      s2.attach(1);
     }
+
     //constrcutor para iniciarlizar las variables de tipo servo
-    moto(int x, int y) {
+    motor(int x, int y) {
       s1.attach(x);
       s2.attach(y);
     }
-
+    //metodos Genericos
     void alto() {
-       s1.write(90);
-       s2.write(90);
+      s1.write(90);
+      s2.write(90);
     }
-    void adelante() {
-       s1.write(0);
-       s2.write(180);
+    void frente() {
+      s1.write(0);
+      s2.write(180);
     }
     void atras() {
-       s1.write(180);
-       s2.write(0);
+      s1.write(180);
+      s2.write(0);
     }
-
+    //metodos para el proceso
+    void tiempoFrente(int tiempo) {
+      s1.write(0);
+      s2.write(180);
+      delay(tiempo);
+    }
 };
