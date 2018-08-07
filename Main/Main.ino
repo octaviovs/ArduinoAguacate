@@ -17,7 +17,8 @@
 
 
   10: apagar luz
-  11:prender luz
+  11: prender luz
+  12:
 */
 
 
@@ -31,45 +32,53 @@ motor *banda;
 luz *iluminacion;
 
 
-String info;
-int x;
-
 void setup() {
   //iniciar puerto serie
-  Serial.begin(9600);
+   Serial.begin(9600);
+   pinMode(13,OUTPUT); 
   //se inicializa el objeto pasando los pines como parametros
-  banda = new motor(0, 1);
+  banda = new motor(0, 1,50000);
   //se inicializa el objeto pasando los pines como parametros
   iluminacion = new luz(4);
 
-  info = "";
-  x = 0;
+
 
 }
 
 
 void loop() {
-
-  if (Serial.available() > 0) {
-
-    x = Serial.read();
-
-
+  
+ 
+ //si hay una comunicacion serial entonces 
+  if (Serial.available() >0) {
+      char x = Serial.read();
+       
+    
     switch (x) {
-      case 1: 
-      break;
-      case 2: 
-      break;
-      case 3: 
-      break;
-      case 10: 
-      iluminacion->apagarLuz();
-      break;
+      case 'a':
+      Serial.println("Frente");
+   
+      banda->frente();
+      
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 10:
+        iluminacion->apagarLuz();
+        break;
       case 11:
-      iluminacion->prenderLuz();
-      break;
+        iluminacion->prenderLuz();
+        break;
+       case 'x':
+       digitalWrite(13,HIGH);
+        break;
+       case 'y':
+       digitalWrite(13,LOW);
+         break;
       default:
-      break;
+        break;
     }
 
   }
